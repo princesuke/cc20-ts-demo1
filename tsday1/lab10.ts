@@ -5,4 +5,4 @@ function logUser(name: string): void {
 
 logUser("Alice");
 
-const x1: string = logUser("Alice");
+// const x1: string = logUser("Alice");
