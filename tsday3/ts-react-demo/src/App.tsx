@@ -8,7 +8,8 @@
 // import Lab12 from "./components/Lab12/Lab12";
 // import Lab13 from "./components/Lab13";
 // import Lab14 from "./components/Lab14";
-import Lab15 from "./components/Lab15";
+// import Lab15 from "./components/Lab15";
+import Lab16 from "./components/Lab16";
 
 // import { useState } from "react";
 // import { Button, Button2, Card } from "./components/Demo1";
@@ -28,7 +29,8 @@ function App() {
 
   return (
     <>
-      {<Lab15 />}
+      {<Lab16 />}
+      {/* {<Lab15 />} */}
       {/* {<Lab14 />} */}
       {/* {<Lab13 />} */}
       {/* {<Lab12 />} */}
