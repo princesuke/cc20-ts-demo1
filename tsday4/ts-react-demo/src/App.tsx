@@ -1,11 +1,14 @@
 import "./App.css";
 // import Lab5 from "./components/Lab5";
-import Lab6 from "./components/Lab6";
+// import Lab6 from "./components/Lab6";
+import UiPanel from "./UiPanel";
 
 function App() {
   return (
     <>
-      <Lab6 />
+      <UiPanel />
+
+      {/* <Lab6 /> */}
       {/* <Lab5 /> */}
       <style>{css}</style>
     </>
