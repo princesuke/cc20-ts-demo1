@@ -79,14 +79,50 @@ export default function Lab6() {
       )}
 
       <h3>Address</h3>
-      {fields.map((f, i) => (
-        <fieldset key={f.id} style={box}>
-          <legend>Address #{i + 1}</legend>
+      <div>
+        {fields.map((f, i) => (
+          <fieldset key={f.id} style={box}>
+            <legend>Address #{i + 1}</legend>
 
-          <label>Line 1 </label>
-          <input {...register(`addresses.${i}.line1`)} />
-        </fieldset>
-      ))}
+            <p>
+              <label>Line 1 </label>
+              <input {...register(`addresses.${i}.line1`)} />
+              {errors.addresses?.[i]?.line1 && (
+                <p className="error">{errors.addresses[i]?.line1?.message}</p>
+              )}
+            </p>
+
+            <p>
+              <label>City </label>
+              <input {...register(`addresses.${i}.city`)} />
+              {errors.addresses?.[i]?.city && (
+                <p className="error">{errors.addresses[i]?.city?.message}</p>
+              )}
+            </p>
+
+            <p>
+              <label>Zip </label>
+              <input {...register(`addresses.${i}.zip`)} />
+              {errors.addresses?.[i]?.zip && (
+                <p className="error">{errors.addresses[i]?.zip?.message}</p>
+              )}
+            </p>
+            <div style={{ display: "flex", gap: 8 }}>
+              <button
+                type="button"
+                onClick={() => append({ line1: "", city: "", zip: "" })}
+              >
+                + Add
+              </button>
+              {fields.length > 1 && (
+                <button type="button" onClick={() => remove(i)}>
+                  Remove
+                </button>
+              )}
+            </div>
+          </fieldset>
+        ))}
+      </div>
 
       <button type="submit" disabled={isSubmitting}>
         Login
