@@ -1,24 +1,32 @@
 {
   "name": "backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "type": "commonjs",
   "scripts": {
-    "dev": "ts-node src/index.ts",
-    "build": "tsc"
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --name init",
+    "prisma:push": "prisma db push",
+    "prisma:studio": "prisma studio",
+    "db:seed": "ts-node prisma/seed.ts"
   },
-  "type": "module",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@fastify/cors": "^11.1.0",
     "@fastify/swagger": "^9.5.1",
     "@fastify/swagger-ui": "^5.2.3",
-    "fastify": "^5.5.0"
+    "@marcalexiei/fastify-type-provider-zod": "^1.2.1",
+    "@prisma/client": "^6.14.0",
+    "fastify": "^5.5.0",
+    "json-schema-to-ts": "^3.1.1",
+    "prisma": "^6.14.0",
+    "tsx": "^4.20.5",
+    "zod": "^3.25.76",
+    "zod-to-json-schema": "^3.24.6"
   },
   "devDependencies": {
-    "@types/node": "^24.3.0",
+    "@types/node": "^20.19.11",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   }

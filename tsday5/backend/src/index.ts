@@ -1,66 +1,34 @@
 import Fastify from "fastify";
-import cors from "@fastify/cors";
-import fp from "fastify-plugin";
+import prisma from "./plugins/prisma";
+import routes from "./routes/todos.routes";
 import swagger from "@fastify/swagger";
-import swaggerUI from "@fastify/swagger-ui";
+import swaggetUI from "@fastify/swagger-ui";
 
-const app = Fastify();
+const app = Fastify({ logger: false });
 
-// await app.register(cors, {
-//     origin: true,
-//     methods: "*",
-//     allowedHeaders: "*"
-// })
 
-await app.register(swagger, {
-    openapi: {
-        info: { title: "Workshop API", version: "0.0.1" },
+async function start() {
+  try {
+
+    await app.register(swagger, {
+      openapi: {
+        info: { title: "Todo Workshop API", version: "0.0.1" },
         servers: [{ url: "http://localhost:3000" }]
-    }
-});
+      }
+    })
+    await app.register(swaggetUI, { routePrefix: "/docs" });
 
-await app.register(swaggerUI, { routePrefix: "/docs" });
-
-app.get("/ping", async (req) => {
-    console.log("route body:", req.body);
-    return { pong: "pong pong", id: req.id }
-});
-app.post("/echo", async (req) => { return { body: req.body, id: req.id } });
-
-app.get("/users/:id", async (req, reply) => {
-    const { id } = req.params as { id: string };
-    const { search } = (req.query) as { search?: string };
-    return { id, search };
-    // return reply.code(201).send({ id, search });
-});
-
-/////////
-
-type CreateBody = { title: string };
-type CreateRes = { id: number, title: string };
+    await app.register(prisma);
+    await app.register(routes);
 
 
-app.post<{ Body: CreateBody; Reply: CreateRes }>("/todos", async (req, reply) => {
-    const todo = { id: 1, title: req.body.title };
-    return reply.code(201).send(todo);
-});
+    const port = Number(process.env.PORT || 3000);
+    await app.listen({ port });
+    app.log.info(`API ready on http://localhost:${port}`);
+  } catch (err) {
+    app.log.error(err);
+    process.exit(1);
+  }
+}
 
-
-////////
-
-app.get("/boom", async () => { throw new Error("oops"); });
-
-app.setErrorHandler((err, req, reply) => reply.status(500).send({ error: err.message }));
-
-
-const authPlugin = fp(async (app) => {
-    app.addHook("onRequest", async (req) => {
-        req.id = "55";
-        // console.log("onRequest body");
-    });
-});
-
-app.register(authPlugin);
-
-
-app.listen({ port: 3000 });
+start();
