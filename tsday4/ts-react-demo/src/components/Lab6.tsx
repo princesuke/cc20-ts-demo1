@@ -77,14 +77,13 @@ export default function Lab6() {
       {errors.confirmPassword && (
         <p className="error">{errors.confirmPassword.message}</p>
       )}
-      <br />
-      <hr />
-      <br />
+
       <h3>Address</h3>
       {fields.map((f, i) => (
         <fieldset key={f.id} style={box}>
           <legend>Address #{i + 1}</legend>
-          <label>Line 1</label>
+
+          <label>Line 1 </label>
           <input {...register(`addresses.${i}.line1`)} />
         </fieldset>
       ))}
