@@ -3,9 +3,9 @@ import prisma from "./plugins/prisma";
 import routes from "./routes/todos.routes";
 import swagger from "@fastify/swagger";
 import swaggetUI from "@fastify/swagger-ui";
+import cors from "@fastify/cors";
 
 const app = Fastify({ logger: false });
-
 
 async function start() {
   try {
@@ -17,6 +17,12 @@ async function start() {
       }
     })
     await app.register(swaggetUI, { routePrefix: "/docs" });
+
+    await app.register(cors, {
+      origin: true,
+      methods: "*"
+    });
+
 
     await app.register(prisma);
     await app.register(routes);

@@ -15,7 +15,7 @@ import { toTodoOut } from "../types/todo.mapper";
 export default async function routes(app: FastifyInstance) {
     app.get("/ping", async () => ({ msg: "pongg" }));
 
-    app.get<{ Reply: Todo[] }>("/todo",
+    app.get<{ Reply: Todo[] }>("/todos",
         {
             schema: { response: { 200: { type: "array", items: TodoSchema } } }
         },
